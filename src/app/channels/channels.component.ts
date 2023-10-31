@@ -8,13 +8,10 @@ import { webSocket } from 'rxjs/webSocket';
   styleUrls: ['./channels.component.css']
 })
 export class ChannelsComponent implements OnInit {
-  messageForm = this.formBuilder.group({
-    message: new FormControl('')
-  });
 
-  messages: Array<string> = [];
-  channels: Array<string> = [];
-
+  channels: Map<string, Array<string>> = new Map<string, Array<string>>();
+  channelList: string[] = [];
+  currentChannel: string = "";
   ws = webSocket("ws://localhost:3000/?username=johndoe");
 
   channelForm = this.formBuilder.group({
@@ -30,14 +27,17 @@ export class ChannelsComponent implements OnInit {
         console.log(value);
 
         if(value["eventName"] && value["eventName"] === "createChannel"){
-          this.channels.push(String(value["channelName"]));
+          this.channels.set(String(value["channelName"]), []);
+          this.updateChannelList();
         }
+        /*
         else{
           this.messages.push(String(value["message"]));
         }
 
         console.log("Channels: " + this.channels);
         console.log("Messages: " + this.messages);
+        */
       },
       error: (err) => {console.log("Error:" + err)},
       complete: () => {console.log("Connection closed")}
@@ -66,18 +66,17 @@ export class ChannelsComponent implements OnInit {
     const json = await response.json();
     console.log(json);
   }
-  /*
-  sendMessage(){
 
+  updateChannelList() : void {
+    this.channelList = Array.from(this.channels.keys());
   }
- */ 
-  onSubmit() : void {
-    console.log(this.messageForm);
-    const message: string | null | undefined = this.messageForm.value["message"];
-    console.log("Message: " + message);
-    //this.messages.push();
-    this.ws.next({'message': message});
-    //this.ws.send(String(message));
+
+  getCurrentChannelMessages() : Array<string> {
+    return (this.channels.get(this.currentChannel)) || [];
   }
-  
+
+  toggleChannel(newChannel: string) : void {
+    this.currentChannel = newChannel;
+  }
+
 }

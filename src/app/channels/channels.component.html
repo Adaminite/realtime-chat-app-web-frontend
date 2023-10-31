@@ -11,16 +11,10 @@
 </form>
 
 
-<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-    <div>
-        <label for="message"> Send Message </label>
-        <input id="message" type="text" formControlName="message">
-    </div>
-    <div>
-        <input type="submit" value="Send"> 
-    </div>
-</form>
+<button *ngFor="let channel of channelList" (click)="toggleChannel(channel)">
+     {{channel}} 
+</button>
 
-<p *ngFor="let msg of messages">
-    {{msg}} 
-</p>
+<div *ngIf="currentChannel">
+    <app-channel [webSocket] = "ws" [messages]="getCurrentChannelMessages()" [channelName]="currentChannel"> </app-channel>
+</div>
