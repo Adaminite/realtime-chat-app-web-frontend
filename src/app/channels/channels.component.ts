@@ -12,6 +12,7 @@ export class ChannelsComponent implements OnInit {
   channels: Map<string, Array<string>> = new Map<string, Array<string>>();
   channelList: string[] = [];
   currentChannel: string = "";
+
   ws = webSocket("ws://localhost:3000/?username=johndoe");
 
   channelForm = this.formBuilder.group({
@@ -23,32 +24,21 @@ export class ChannelsComponent implements OnInit {
   ngOnInit() : void {
     
     this.ws.subscribe({
+
       next: (value: any) => {
         console.log(value);
 
-        if(value["eventName"] && value["eventName"] === "createChannel"){
+        if(value["eventName"] === "createChannel"){
           this.channels.set(String(value["channelName"]), []);
           this.updateChannelList();
         }
-        /*
-        else{
-          this.messages.push(String(value["message"]));
+        else if(value["eventName"] === "receiveMessage"){
+          this.channels.get(String(value["channelName"]))?.push(String(value["message"]));
         }
-
-        console.log("Channels: " + this.channels);
-        console.log("Messages: " + this.messages);
-        */
       },
       error: (err) => {console.log("Error:" + err)},
       complete: () => {console.log("Connection closed")}
     });
-    
-
-    /*
-    this.ws.addEventListener('message', (event: MessageEvent) => {
-      console.log(event);
-    });
-    */
   }
 
   async createRoom() : Promise<void> {
