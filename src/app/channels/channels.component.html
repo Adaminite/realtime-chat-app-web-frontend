@@ -1,0 +1,26 @@
+<p>test works!</p>
+
+<form [formGroup]="channelForm" (ngSubmit)="createRoom()">
+    <div>
+        <label for="channelName"> Room Name: </label>
+        <input id="channelName" type="text" formControlName="channelName">
+    </div>
+    <div>
+        <input type="submit" value="Create">
+    </div>
+</form>
+
+
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="message"> Send Message </label>
+        <input id="message" type="text" formControlName="message">
+    </div>
+    <div>
+        <input type="submit" value="Send"> 
+    </div>
+</form>
+
+<p *ngFor="let msg of messages">
+    {{msg}} 
+</p>
