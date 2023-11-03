@@ -1,0 +1,24 @@
+<p>register works!</p>
+
+<form (ngSubmit)="register()" [formGroup]="registrationForm">
+    <div>
+        <label for="username"> Username: </label>
+        <input id="username" type="text" formControlName="username" required>
+    </div>
+
+    <div>
+        <label for="password"> Password: </label>
+        <input id="password" type="password" formControlName="password" required>
+    </div>
+
+    <div>
+        <label for="confirm-password"> Confirm Password: </label>
+        <input id="confirm-password" type="password" formControlName="passwordConfirm" required>
+    </div>
+
+    <div>
+        <input type="submit" value="Register">
+    </div>
+</form>
+
+<h2 *ngIf="errorMessage"> {{errorMessage}} </h2>
