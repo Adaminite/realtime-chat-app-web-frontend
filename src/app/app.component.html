@@ -1,3 +1,7 @@
-<h1> Hello World! </h1>
-<app-test></app-test>
+<h1> {{username}} </h1>
+
+<app-login *ngIf="!isLoggedIn" (logInEvent)="logIn($event)"></app-login>
+<button *ngIf="isLoggedIn" (click)="signOut()"> Sign Out </button>
+<app-channels *ngIf="isLoggedIn" [username]="username" [ws]="ws"></app-channels>
+
 <router-outlet></router-outlet>

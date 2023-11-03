@@ -1,0 +1,11 @@
+<!-- <p>login works!</p> -->
+
+<form (ngSubmit)="signIn()" [formGroup]="logInForm">
+    <div>
+        <label for="username"> Username: </label>
+        <input id="username" type="text" formControlName="username">
+    </div>
+    <div>
+        <input type="submit" value="Log In">
+    </div>
+</form>

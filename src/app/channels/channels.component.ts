@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
-import { webSocket } from 'rxjs/webSocket';
+import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 
 @Component({
-  selector: 'app-test',
+  selector: 'app-channels',
   templateUrl: './channels.component.html',
   styleUrls: ['./channels.component.css']
 })
 export class ChannelsComponent implements OnInit {
 
+  @Input()
+  username: string = "";
+
   channels: Map<string, Array<string>> = new Map<string, Array<string>>();
   channelList: string[] = [];
   currentChannel: string = "";
 
-  ws = webSocket("ws://localhost:3000/?username=johndoe");
+  @Input()
+  ws: any = null;
 
   channelForm = this.formBuilder.group({
     channelName: new FormControl('')
@@ -22,7 +26,6 @@ export class ChannelsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder){}
   
   ngOnInit() : void {
-    
     this.ws.subscribe({
 
       next: (value: any) => {
@@ -36,9 +39,11 @@ export class ChannelsComponent implements OnInit {
           this.channels.get(String(value["channelName"]))?.push(String(value["message"]));
         }
       },
-      error: (err) => {console.log("Error:" + err)},
+      error: (err: any) => {console.log("Error:" + err)},
       complete: () => {console.log("Connection closed")}
     });
+
+    
   }
 
   async createRoom() : Promise<void> {

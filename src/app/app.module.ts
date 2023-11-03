@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChannelsComponent } from './channels/channels.component';
 import { ChannelComponent } from './channel/channel.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChannelsComponent,
-    ChannelComponent
+    ChannelComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
