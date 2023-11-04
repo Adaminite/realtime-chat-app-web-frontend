@@ -1,11 +1,17 @@
-<!-- <p>login works!</p> -->
+<h1> Log In </h1>
 
 <form (ngSubmit)="signIn()" [formGroup]="logInForm">
     <div>
-        <label for="username"> Username: </label>
-        <input id="username" type="text" formControlName="username">
+        <label for="user"> Username: </label>
+        <input id="user" type="text" formControlName="username">
+    </div>
+    <div>
+        <label for="pass"> Password: </label>
+        <input id="pass" type="password" formControlName="password">
     </div>
     <div>
         <input type="submit" value="Log In">
     </div>
 </form>
+
+<p> {{errorMessage}} </p>
