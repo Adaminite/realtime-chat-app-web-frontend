@@ -12,6 +12,9 @@ export class ChannelsComponent implements OnInit {
   @Input()
   username: string = "";
 
+  @Input()
+  userId: number = -1;
+
   channels: Map<string, Array<string>> = new Map<string, Array<string>>();
   channelList: string[] = [];
   currentChannel: string = "";
@@ -55,7 +58,11 @@ export class ChannelsComponent implements OnInit {
       headers : {
         "Content-Type": "application/json"
       },
-      body : JSON.stringify({channelName})
+      body : JSON.stringify({
+        channelName,
+        userId: this.userId,
+        username: this.username
+      })
     });
 
     const json = await response.json();

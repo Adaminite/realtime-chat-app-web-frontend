@@ -12,17 +12,20 @@ export class AppComponent {
 
   isLoggedIn: boolean = false;
   username: string = "";
+  userId: number = -1;
   ws: any = null;
 
   logIn(value: LogInEvent) : void {
     this.isLoggedIn = value["isSignedIn"];
     this.username = value["username"];
+    this.userId = value["userId"];
     this.ws = webSocket(`ws://localhost:3000/?username=${this.username}`);
   }
 
   signOut() : void {
     this.isLoggedIn = false;
     this.username = "";
+    this.userId = -1;
     this.ws.complete();
   }
 }

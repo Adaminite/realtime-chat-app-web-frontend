@@ -4,7 +4,7 @@ import { FormControl, FormBuilder } from '@angular/forms';
 export interface LogInEvent{
   isSignedIn: boolean,
   username: string,
-  userId: string
+  userId: number
 }
 
 @Component({
