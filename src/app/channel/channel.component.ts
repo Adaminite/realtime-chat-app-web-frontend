@@ -30,7 +30,8 @@ export class ChannelComponent {
     console.log("Message: " + message);
     this.webSocket.next({
       'channelName': this.channelName,
-      'message': message
+      'message': message,
+      'event': 'broadcastMessage'
     });
   }
 
