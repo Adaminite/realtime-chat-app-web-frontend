@@ -25,18 +25,46 @@ export class ChannelComponent {
     message: new FormControl('')
   });
 
+  addUserForm = this.formBuilder.group({
+    username: new FormControl('')
+  });
+
   constructor(private formBuilder: FormBuilder){}
 
   onSubmit() : void {
-    console.log(this.messageForm);
     const message: string | null | undefined = this.messageForm.value["message"];
-    console.log("Message: " + message);
     this.webSocket.next({
       'channelName': this.channelName,
       'channelId': this.channelId,
       'message': message,
+      'time_stamp': Date.now(),
       'event': 'broadcastMessage'
     });
   }
 
+  async addUser(): Promise<void> {
+    const username : string  = this.addUserForm.value["username"] || "";
+
+    if(!username){
+      return;
+    }
+
+    const response = await fetch('http://localhost:3000/channels/adduser', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        channelName: this.channelName,
+        channelId: this.channelId,
+        username: username
+      })
+    });
+
+    const json = await response.json();
+    if(json["err"]){
+      alert(json["err"]);
+    }
+  }
 }

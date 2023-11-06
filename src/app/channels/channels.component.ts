@@ -58,16 +58,26 @@ export class ChannelsComponent implements OnInit {
 
     this.ws.subscribe({
 
-      next: (value: any) => {
-        console.log(value);
-
-        if(value["eventName"] === "createChannel"){
+      next: async (value: any) => {
+        if(value["eventName"] === "joinChannel"){
           this.channels.set(value["channelId"], []);
           this.channelIdToName.set(value["channelId"], value["channelName"]);
           this.updateChannelList();
+          
+          const response = await fetch('http://localhost:3000/messages/' + value["channelId"], {
+            method: "GET",
+            mode: "cors"
+          });
+
+          const json = await response.json();
+          this.channels.get(Number(value["channelId"]))?.push(...json["messages"]);
         }
         else if(value["eventName"] === "receiveMessage"){
-          this.channels.get(value["channelId"])?.push(String(value["message"]));
+          this.channels.get(value["channelId"])?.push({
+            text: String(value["message"]),
+            time_stamp: value["time_stamp"],
+            sender: value["sender"]
+          });
         }
       },
       error: (err: any) => {console.log("Error:" + err)},
@@ -79,8 +89,7 @@ export class ChannelsComponent implements OnInit {
 
   async createRoom() : Promise<void> {
     const channelName : string | null | undefined = this.channelForm.value["channelName"];
-    console.log(JSON.stringify({"channelName": channelName}))
-    const response = await fetch('http://localhost:3000/channels/create', {
+    await fetch('http://localhost:3000/channels/create', {
       method: "POST",
       mode: 'cors',
       headers : {
@@ -93,13 +102,10 @@ export class ChannelsComponent implements OnInit {
       })
     });
 
-    const json = await response.json();
-    console.log(json);
   }
 
   updateChannelList() : void {
     this.channelList = Array.from(this.channels.keys());
-    console.log(this.channelList);
   }
 
   getCurrentChannelMessages() : Array<string> {

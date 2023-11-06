@@ -7,11 +7,21 @@
 
 <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
     <div>
-        <label for="message"> Send Message </label>
+        <label for="message"> Send Message: </label>
         <input id="message" type="text" formControlName="message">
     </div>
     <div>
         <input type="submit" value="Send"> 
+    </div>
+</form>
+
+<form [formGroup]="addUserForm" (ngSubmit)="addUser()">
+    <div>
+        <label for="addUser"> Add User: </label>
+        <input id="addUser" type="text" formControlName="username">
+    </div>
+    <div>
+        <input type="submit" value="Add">
     </div>
 </form>
 
