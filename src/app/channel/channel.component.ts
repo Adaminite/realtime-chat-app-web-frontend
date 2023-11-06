@@ -10,13 +10,16 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ChannelComponent {
   @Input()
-  messages: Array<string> = [];
+  messages: Array<any> = [];
 
   @Input()
   channelName: string = "";
 
   @Input()
   webSocket: any;
+
+  @Input()
+  channelId: number = 0;
 
   messageForm = this.formBuilder.group({
     message: new FormControl('')
@@ -30,6 +33,7 @@ export class ChannelComponent {
     console.log("Message: " + message);
     this.webSocket.next({
       'channelName': this.channelName,
+      'channelId': this.channelId,
       'message': message,
       'event': 'broadcastMessage'
     });

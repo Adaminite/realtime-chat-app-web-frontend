@@ -1,5 +1,3 @@
-<!-- <p>test works!</p> -->
-
 <form [formGroup]="channelForm" (ngSubmit)="createRoom()">
     <div>
         <label for="channelName"> Room Name: </label>
@@ -11,10 +9,10 @@
 </form>
 
 
-<button *ngFor="let channel of channelList" (click)="toggleChannel(channel)">
-     {{channel}} 
+<button *ngFor="let channel of channelIdToName | keyvalue" (click)="toggleChannel(channel.key)">
+     {{channel.value}}
 </button>
 
 <div *ngIf="currentChannel">
-    <app-channel [webSocket] = "ws" [messages]="getCurrentChannelMessages()" [channelName]="currentChannel"> </app-channel>
+    <app-channel [channelId]="currentChannel"[webSocket] = "ws" [messages]="getCurrentChannelMessages()" [channelName]="getCurrentChannelName()"> </app-channel>
 </div>

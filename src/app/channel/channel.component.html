@@ -2,7 +2,7 @@
 
 
 <p *ngFor="let msg of messages">
-    {{msg}} 
+    {{msg.sender}} @ {{msg.time_stamp | date:'short'}}: {{msg.text}} 
 </p>
 
 <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
