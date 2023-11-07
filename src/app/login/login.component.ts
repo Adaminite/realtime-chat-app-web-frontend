@@ -1,5 +1,7 @@
-import { Component, Output, EventEmitter} from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
+import { StateManagementService } from '../statemanagement.service';
+import { Router } from '@angular/router';
 
 export interface LogInEvent{
   isSignedIn: boolean,
@@ -12,7 +14,7 @@ export interface LogInEvent{
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
 
   @Output()
   logInEvent: EventEmitter<LogInEvent> = new EventEmitter<LogInEvent>();
@@ -23,8 +25,25 @@ export class LoginComponent {
     password: new FormControl('')
   });
 
-  constructor(private formBuilder: FormBuilder){}
-  
+  isLoggedIn: boolean = false;
+  isLoggedInSubscription: any;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private stateManagementService: StateManagementService){}
+
+  ngOnInit(): void {
+    const observables = this.stateManagementService.getLoginState();
+    this.isLoggedInSubscription = observables.isLoggedIn.subscribe(async (isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+      if(isLoggedIn){
+        await this.router.navigateByUrl('/channels');
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.isLoggedInSubscription.unsubscribe();
+  }
+
   async signIn() : Promise<void> {
     const username : string | null | undefined = this.logInForm.value["username"];
     const password: string | null | undefined = this.logInForm.value["password"];
@@ -51,11 +70,7 @@ export class LoginComponent {
     if(json["err"]){
       this.errorMessage = json["err"];
     } else{
-      this.logInEvent.emit({
-        isSignedIn: true,
-        username: json["username"],
-        userId: json["user_id"]
-      });
+      this.stateManagementService.logIn(json["username"], json["user_id"], true)
     }
 
     this.logInForm.reset();

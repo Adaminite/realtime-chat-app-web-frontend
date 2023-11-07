@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
+import { Router } from '@angular/router';
+import { StateManagementService } from '../statemanagement.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-channels',
@@ -9,11 +12,9 @@ import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 })
 export class ChannelsComponent implements OnInit {
 
-  @Input()
   username: string = "";
-
-  @Input()
   userId: number = 0;
+  ws: any = null;
 
   channels: Map<number, Array<any>> = new Map<number, Array<any>>();
   channelIdToName: Map<number, string> = new Map<number, string>();
@@ -21,16 +22,43 @@ export class ChannelsComponent implements OnInit {
   channelList: number[] = [];
   currentChannel: number = 0;
 
-  @Input()
-  ws: any = null;
-
   channelForm = this.formBuilder.group({
     channelName: new FormControl('')
   });
 
-  constructor(private formBuilder: FormBuilder){}
+  isLoggedInSubscription : any;
+  usernameSubscription : any;
+  userIdSubscription: any;
+  wsSubscription: any;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private stateManagementService: StateManagementService){}
   
   async ngOnInit() : Promise<void> {
+    const observables = this.stateManagementService.getLoginState();
+
+    this.isLoggedInSubscription = observables.isLoggedIn.subscribe(async (isLoggedIn) => {
+      if(!isLoggedIn){
+        await this.router.navigateByUrl('/login');
+        return;
+      }
+    });
+
+    this.usernameSubscription = observables.username.subscribe((username) => {
+      this.username = username;
+    });
+
+    this.userIdSubscription = observables.userId.subscribe((userId) => {
+      this.userId = userId;
+    });
+
+    this.wsSubscription = observables.ws.subscribe((ws) => {
+      this.ws = ws;
+      if(ws){
+        this.getChatHistory();
+      }
+    });
+  }
+  async getChatHistory(): Promise<void> {
     try{
       const response = await fetch('http://localhost:3000/users/channelswithmessages/' + this.userId, {
         mode: "cors",
@@ -49,16 +77,17 @@ export class ChannelsComponent implements OnInit {
         this.channelIdToName.set(Number(channel["channelId"]), channel["channelName"]);
       });
       this.updateChannelList();
+      this.subscribeWS();
     } catch(err){
       alert("Error loading channels. Please refresh to try again");
     }
+  }
 
-
-  
-
+  subscribeWS() : void {
     this.ws.subscribe({
 
       next: async (value: any) => {
+        console.log(value);
         if(value["eventName"] === "joinChannel"){
           this.channels.set(value["channelId"], []);
           this.channelIdToName.set(value["channelId"], value["channelName"]);
@@ -83,8 +112,6 @@ export class ChannelsComponent implements OnInit {
       error: (err: any) => {console.log("Error:" + err)},
       complete: () => {console.log("Connection closed")}
     });
-
-    
   }
 
   async createRoom() : Promise<void> {

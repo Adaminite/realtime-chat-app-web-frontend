@@ -1,7 +1,3 @@
 <h1> {{username}} </h1>
-<app-register *ngIf="!isLoggedIn" (registerEvent)="logIn($event)"></app-register>
-<app-login *ngIf="!isLoggedIn" (logInEvent)="logIn($event)"></app-login>
-<button *ngIf="isLoggedIn" (click)="signOut()"> Sign Out </button>
-<app-channels *ngIf="isLoggedIn" [username]="username" [userId]="userId" [ws]="ws"></app-channels>
 
 <router-outlet></router-outlet>
