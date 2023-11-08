@@ -49,14 +49,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const username : string | null | undefined = data["username"];
     const password : string | null | undefined = data["password"];
     const confirmPassword : string | null | undefined = data["passwordConfirm"];
-
-    if(!password || !confirmPassword || password !== confirmPassword){
+    if(!username){
+      this.errorMessage = "Invalid username";
+      this.registrationForm.reset();
+    } else if(!password || !confirmPassword || password !== confirmPassword){
       this.errorMessage = "Potentially missing a password field or passwords do not match";
       this.registrationForm.controls.password.reset();
       this.registrationForm.controls.passwordConfirm.reset();
-    } else if(!username){
-      this.errorMessage = "Invalid username";
-      this.registrationForm.reset();
     } else{
       const response = await fetch("http://localhost:3000/users/register", {
         method: "POST",
@@ -75,14 +74,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       if(json["err"]){
         this.errorMessage = json["err"];
       } else {
-        /*
-        this.registerEvent.emit({
-          isSignedIn: true,
-          userId: json["user_id"],
-          username: json["username"]
-        });
-        */
-
         this.stateManagementService.logIn(json["username"], json["user_id"], true)
       }
 

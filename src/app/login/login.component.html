@@ -1,17 +1,18 @@
-<h1> Log In </h1>
+<div class="form-card">
+    <h1 class="form-header"> Log In </h1>
 
-<form (ngSubmit)="signIn()" [formGroup]="logInForm">
-    <div>
-        <label for="user"> Username: </label>
-        <input id="user" type="text" formControlName="username">
-    </div>
-    <div>
-        <label for="pass"> Password: </label>
-        <input id="pass" type="password" formControlName="password">
-    </div>
-    <div>
-        <input type="submit" value="Log In">
-    </div>
-</form>
-
-<p> {{errorMessage}} </p>
+    <form class="form-main" (ngSubmit)="signIn()" [formGroup]="logInForm">
+        <div class="form-control">
+            <label class="form-label" for="user"> Username: </label>
+            <input class="form-text" id="user" type="text" formControlName="username">
+        </div>
+        <div class="form-control">
+            <label class="form-label" for="pass"> Password: </label>
+            <input id="pass" class="form-text" type="password" formControlName="password">
+        </div>
+        <p class="error" [ngClass]="errorMessage ? 'show' : 'hide'"> {{errorMessage ? errorMessage : 'error placeholder'}} </p>
+        <div class="form-submit">
+            <input class="form-submit-btn" type="submit" value="Log In">
+        </div>
+    </form>
+</div>

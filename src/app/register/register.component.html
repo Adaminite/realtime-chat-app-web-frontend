@@ -1,24 +1,23 @@
-<h1> Registration </h1>
+<div class="form-card">
+    <h1 class="form-header"> Register </h1>
+    <form class="form-main" (ngSubmit)="register()" [formGroup]="registrationForm">
+        <div class="form-control">
+            <label class="form-label" for="username"> Username: </label>
+            <input class="form-text" id="username" type="text" formControlName="username" required>
+        </div>
 
-<form (ngSubmit)="register()" [formGroup]="registrationForm">
-    <div>
-        <label for="username"> Username: </label>
-        <input id="username" type="text" formControlName="username" required>
-    </div>
+        <div class="form-control">
+            <label class="form-label" for="password"> Password: </label>
+            <input class="form-text" id="password" type="password" formControlName="password" required>
+        </div>
 
-    <div>
-        <label for="password"> Password: </label>
-        <input id="password" type="password" formControlName="password" required>
-    </div>
-
-    <div>
-        <label for="confirm-password"> Confirm Password: </label>
-        <input id="confirm-password" type="password" formControlName="passwordConfirm" required>
-    </div>
-
-    <div>
-        <input type="submit" value="Register">
-    </div>
-</form>
-
-<h2 *ngIf="errorMessage"> {{errorMessage}} </h2>
+        <div class="form-control">
+            <label class="form-label" for="confirm-password"> Confirm Password: </label>
+            <input class="form-text" id="confirm-password" type="password" formControlName="passwordConfirm" required>
+        </div>
+        <p class="error" [ngClass]="errorMessage ? 'show' : 'hide'"> {{errorMessage ? errorMessage : 'error placeholder'}} </p>
+        <div class="form-submit">
+            <input class="form-submit-btn" type="submit" value="Register">
+        </div>
+    </form>
+</div>

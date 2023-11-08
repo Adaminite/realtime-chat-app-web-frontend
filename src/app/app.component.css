@@ -1,12 +1,8 @@
-app-login, app-register, app-channels {
-    flex: 1;
-}
-
 .navbar{
     display: flex;
     justify-content: space-between;
     background: linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255));
-    box-shadow: 10px 10px 10px 10px rgb(240, 240, 240);
+    /*box-shadow: 10px 10px 10px 10px rgb(240, 240, 240); */
 }
 
 .left-items{

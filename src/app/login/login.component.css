@@ -1,0 +1,65 @@
+.form-card{
+    /*border: 1rem solid rgb(252, 252, 252);*/
+    border-radius: 1rem;
+    box-shadow: 0px 0px 1rem 1rem rgb(220, 220, 220);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-header{
+    text-align: center;
+}
+
+.form-control{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label{
+    font-size: 1.3rem;  
+    align-self: start;
+}
+
+.form-text{
+    width: 350px;
+    padding: 10px;
+}
+
+.form-submit{
+    display: flex;
+    justify-content: center;
+}
+
+.form-submit-btn{
+    padding: 5px 10px;
+    font-size: 1rem;
+    background-color: rgb(251, 244, 150);
+    border: 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.form-submit-btn:hover{
+    background-color: rgb(249, 241, 134);
+}
+
+.error{
+    border-radius: 0.5rem;
+    background-color: rgb(251, 149, 149, 0.584);
+    padding:10px;
+}
+
+.show{
+    visibility: visible;
+}
+
+.hide{
+    visibility: hidden;
+}

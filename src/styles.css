@@ -4,6 +4,7 @@ html, body{
     margin: 0;
     padding: 0;
     font-family: 'Helvetica', 'Roboto', Georgia, 'Times New Roman', Times, serif;
+    box-sizing: border-box;
 }
 
 app-root{
@@ -14,4 +15,78 @@ app-root{
 
 app-login, app-register, app-channels {
     flex: 1;
+}
+
+app-login, app-register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-card{
+    /*border: 1rem solid rgb(252, 252, 252);*/
+    border-radius: 1rem;
+    box-shadow: 0px 0px 1rem 1rem rgb(220, 220, 220);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 375px;
+}
+
+.form-main{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-header{
+    text-align: center;
+}
+
+.form-control{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label{
+    font-size: 1.3rem;  
+    align-self: start;
+}
+
+.form-text{
+    width: 350px;
+    padding: 10px;
+}
+
+.form-submit{
+    display: flex;
+    justify-content: center;
+}
+
+.form-submit-btn{
+    padding: 5px 10px;
+    font-size: 1rem;
+    background-color: rgb(251, 244, 150);
+    border: 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.form-submit-btn:hover{
+    background-color: rgb(255, 243, 73);
+}
+
+.error{
+    border-radius: 0.5rem;
+    background-color: rgb(251, 149, 149, 0.584);
+    padding:10px;
+}
+
+.show{
+    visibility: visible;
+}
+
+.hide{
+    visibility: hidden;
 }
