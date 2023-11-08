@@ -1,11 +1,9 @@
 import { Component, OnInit, OnDestroy, Output } from '@angular/core';
-import { Form, FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { LogInEvent } from '../login/login.component';
 import { StateManagementService } from '../statemanagement.service';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',

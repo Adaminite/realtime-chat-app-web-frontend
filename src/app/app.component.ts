@@ -1,31 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LogInEvent } from './login/login.component';
 import { webSocket } from 'rxjs/webSocket';
+import { StateManagementService } from './statemanagement.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy{
   title = 'realtime-chat-app-frontend';
 
   isLoggedIn: boolean = false;
-  username: string = "";
-  userId: number = -1;
-  ws: any = null;
+  isLoggedInSubscription: any;
 
-  logIn(value: LogInEvent) : void {
-    this.isLoggedIn = value["isSignedIn"];
-    this.username = value["username"];
-    this.userId = value["userId"];
-    this.ws = webSocket(`ws://localhost:3000/?username=${this.username}`);
+  constructor(private stateManagementService: StateManagementService){}
+
+  ngOnInit() : void {
+    this.isLoggedInSubscription = this.stateManagementService.getLoginState().isLoggedIn.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.isLoggedInSubscription.unsubscribe();
   }
 
   signOut() : void {
-    this.isLoggedIn = false;
-    this.username = "";
-    this.userId = -1;
-    this.ws.complete();
+    this.stateManagementService.signOut();
   }
+
+
 }

@@ -1,16 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
-import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { Router } from '@angular/router';
 import { StateManagementService } from '../statemanagement.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-channels',
   templateUrl: './channels.component.html',
   styleUrls: ['./channels.component.css']
 })
-export class ChannelsComponent implements OnInit {
+export class ChannelsComponent implements OnInit, OnDestroy {
 
   username: string = "";
   userId: number = 0;
@@ -58,6 +56,14 @@ export class ChannelsComponent implements OnInit {
       }
     });
   }
+
+  ngOnDestroy(): void {
+    this.isLoggedInSubscription.unsubscribe();
+    this.userIdSubscription.unsubscribe();
+    this.usernameSubscription.unsubscribe();
+    this.wsSubscription.unsubscribe();  
+  }
+
   async getChatHistory(): Promise<void> {
     try{
       const response = await fetch('http://localhost:3000/users/channelswithmessages/' + this.userId, {

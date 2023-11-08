@@ -1,3 +1,22 @@
-<h1> {{username}} </h1>
+<nav class="navbar">
+    <ul class="left-items">
+        <li class="nav-item">Realtime Chat App</li>
+    </ul>
+
+    <ul *ngIf="isLoggedIn"  class="right-items">
+        <li class="nav-item"><a (click)="signOut()" class="nav-link">Sign Out</a></li>
+    </ul>
+
+    <ul *ngIf="!isLoggedIn" class="right-items">
+        <li class="nav-item"><a href="/login" class="nav-link">Log In</a></li>
+        <li class="nav-item"><a href="/register" class="nav-link"> Register</a></li>
+    </ul>
+</nav>
 
 <router-outlet></router-outlet>
+
+<!-- HTML renders here -->
+
+<footer class="footer">
+    <h1> &copy;2023 Omar Niazi  </h1>
+</footer>
