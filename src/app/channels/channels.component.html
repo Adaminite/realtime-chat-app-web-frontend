@@ -1,18 +1,25 @@
-<form [formGroup]="channelForm" (ngSubmit)="createRoom()">
-    <div>
-        <label for="channelName"> Room Name: </label>
-        <input id="channelName" type="text" formControlName="channelName">
+
+
+<div class="channels-view">
+    <div class="channel-selection">
+        <div class="channel-selector" *ngFor="let channel of channelIdToName | keyvalue" (click)="toggleChannel(channel.key)" 
+        [attr.id]="channel.key" [ngClass]="channel.key === currentChannel ? 'selected' : 'not-selected'">
+            <p class="channel-name">{{channel.value}}</p>
+        </div>
+        <form class="channel-form" [formGroup]="channelForm" (ngSubmit)="createRoom()">
+            <div>
+                <input class="channel-input" id="channelName" type="text" formControlName="channelName" placeholder="Enter Channel Name Here">
+            </div>
+            <div class="channel-submit">
+                <input class="channel-submit-btn" type="submit" value="Create">
+            </div>
+        </form>
     </div>
-    <div>
-        <input type="submit" value="Create">
+
+
+
+    
+    <div class="channel" *ngIf="currentChannel">
+        <app-channel [channelId]="currentChannel"[webSocket] = "ws" [messages]="getCurrentChannelMessages()" [channelName]="getCurrentChannelName()"> </app-channel>
     </div>
-</form>
-
-
-<button *ngFor="let channel of channelIdToName | keyvalue" (click)="toggleChannel(channel.key)">
-     {{channel.value}}
-</button>
-
-<div *ngIf="currentChannel">
-    <app-channel [channelId]="currentChannel"[webSocket] = "ws" [messages]="getCurrentChannelMessages()" [channelName]="getCurrentChannelName()"> </app-channel>
 </div>

@@ -1,0 +1,58 @@
+.channel-selection{
+    position: fixed;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.channel-selector{
+    cursor: pointer;
+    padding: 5px;
+}
+
+.channel-name{
+    font-size: 1.2rem;
+}
+
+.channels-view{
+    display: flex;
+}
+
+.selected {
+    background-color: rgb(150, 255, 255);
+}
+
+.not-selected{
+    background-color: white;
+}
+
+.channel{
+    position: relative;
+    left: 250px;
+}
+
+.channel-form{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.channel-input{
+    padding: 10px;
+    border-radius: 0.5rem;
+    border-width: 1px;
+}
+
+.channel-submit-btn{
+    padding: 10px;
+    font-size: 1rem;
+    background-color: rgb(251, 244, 150);
+    border: 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}

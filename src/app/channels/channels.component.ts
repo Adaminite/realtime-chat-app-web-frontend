@@ -89,11 +89,10 @@ export class ChannelsComponent implements OnInit, OnDestroy {
     }
   }
 
-  subscribeWS() : void {
-    this.ws.subscribe({
+  async subscribeWS() : Promise<void> {
+    await this.ws.subscribe({
 
       next: async (value: any) => {
-        console.log(value);
         if(value["eventName"] === "joinChannel"){
           this.channels.set(value["channelId"], []);
           this.channelIdToName.set(value["channelId"], value["channelName"]);
@@ -122,7 +121,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
 
   async createRoom() : Promise<void> {
     const channelName : string | null | undefined = this.channelForm.value["channelName"];
-    await fetch('http://localhost:3000/channels/create', {
+    const response = await fetch('http://localhost:3000/channels/create', {
       method: "POST",
       mode: 'cors',
       headers : {
@@ -134,6 +133,8 @@ export class ChannelsComponent implements OnInit, OnDestroy {
         username: this.username
       })
     });
+
+    console.log(await response.json());
 
   }
 

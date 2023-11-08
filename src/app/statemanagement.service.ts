@@ -7,10 +7,17 @@ import { webSocket } from 'rxjs/webSocket';
 })
 export class StateManagementService {
 
+  private _isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private _username: BehaviorSubject<string> = new BehaviorSubject<string>("hello");
+  private _userId: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  private _ws: BehaviorSubject<any> = new BehaviorSubject<any>(webSocket(`ws://localhost:3000/?username=${"hello"}`));
+
+  /* For PROD; above is for auto log-in for styling
   private _isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _username: BehaviorSubject<string> = new BehaviorSubject<string>("");
   private _userId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _ws: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  */
 
   constructor() { }
 
