@@ -21,6 +21,9 @@ export class ChannelComponent {
   @Input()
   channelId: number = 0;
 
+  @Input()
+  username: string = "";
+
   messageForm = this.formBuilder.group({
     message: new FormControl('')
   });

@@ -154,4 +154,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
     this.currentChannel = newChannel;
   }
 
+  signOut(): void {
+    this.stateManagementService.signOut();
+  }
 }

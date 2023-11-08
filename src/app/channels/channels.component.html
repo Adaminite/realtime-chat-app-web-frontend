@@ -2,9 +2,13 @@
 
 <div class="channels-view">
     <div class="channel-selection">
-        <div class="channel-selector" *ngFor="let channel of channelIdToName | keyvalue" (click)="toggleChannel(channel.key)" 
-        [attr.id]="channel.key" [ngClass]="channel.key === currentChannel ? 'selected' : 'not-selected'">
-            <p class="channel-name">{{channel.value}}</p>
+        <div class="app-header">
+            <p class="app-title">Realtime Chat App</p>
+        </div>
+        <div class="sign-out">
+            <button class="sign-out-btn" (click)="signOut()">
+                Sign Out
+            </button>
         </div>
         <form class="channel-form" [formGroup]="channelForm" (ngSubmit)="createRoom()">
             <div>
@@ -14,12 +18,13 @@
                 <input class="channel-submit-btn" type="submit" value="Create">
             </div>
         </form>
+        <div class="channel-selector" *ngFor="let channel of channelIdToName | keyvalue" (click)="toggleChannel(channel.key)" 
+        [attr.id]="channel.key" [ngClass]="channel.key === currentChannel ? 'selected' : 'not-selected'">
+            <p class="channel-name">{{channel.value}}</p>
+        </div>
     </div>
 
-
-
-    
     <div class="channel" *ngIf="currentChannel">
-        <app-channel [channelId]="currentChannel"[webSocket] = "ws" [messages]="getCurrentChannelMessages()" [channelName]="getCurrentChannelName()"> </app-channel>
+        <app-channel [username]="username" [channelName]="getCurrentChannelName()" [channelId]="currentChannel"[webSocket] = "ws" [messages]="getCurrentChannelMessages()" [channelName]="getCurrentChannelName()"> </app-channel>
     </div>
 </div>

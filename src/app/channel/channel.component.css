@@ -1,0 +1,134 @@
+.channel-header-container{
+    display: flex;
+}
+
+.add-user-text{
+    padding: 1px;
+    margin: 0;
+    border: 1px solid black;
+    display: inline-block;
+    flex: auto;
+}
+.add-user-btn{
+    background-color: rgb(251, 244, 150);
+    margin: 0;
+    padding: 1px;
+    border: 1px solid black;
+    display: inline-block;
+}
+.add-user-btn:hover{
+    background-color: rgb(255, 243, 73);
+    cursor: pointer;
+}
+
+.add-user-form{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(max-width: 840px){
+    .channel-header-container{
+        flex-direction: column;
+    }
+    .add-user-form{
+        align-self: flex-end;
+    }
+    .channel-header{
+        align-self: center;
+    }
+}
+
+@media (min-width: 840px) {
+    .add-user-form{
+        position: absolute;
+        right: 0;
+    }    
+    .channel-header-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .channel-header{
+        justify-content: center;
+    }
+}
+
+.messages{
+    display: flex;
+    flex-direction: column;
+}
+.message{
+    width: 250px
+}
+
+.message-header{
+    font-weight: 800;
+}
+
+.message-text{
+    width: 100%;
+}
+
+.left{
+    align-self: flex-start;
+}
+
+@media (max-width: 550px) {
+    .right{
+        align-self: flex-start;
+    }
+
+    .submit-btn{
+        width: 50px;
+    }
+}
+
+@media (min-width: 550px){
+    .right{
+        align-self: flex-end;
+    }
+    
+    .submit-btn{
+        width: 100px;
+    }
+}
+
+.message-form{
+    display: flex;
+    bottom: 0;
+    left: 0;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+}
+
+.message-container{
+    flex: auto;
+    display: flex;
+}
+
+textarea{
+    resize: none;
+    margin: 0;
+    padding: 1px;
+    border: 1px solid black;
+    flex: auto;
+    display: inline-block;
+}
+.submit-btn{
+    display: inline-block;
+    height: 100%;
+    margin: 0;
+    padding: 1px;
+    border: 1px solid black;
+    background-color: rgb(251, 244, 150);
+}
+
+.submit-btn:hover{
+    background-color: rgb(255, 243, 73);
+    cursor: pointer;
+}

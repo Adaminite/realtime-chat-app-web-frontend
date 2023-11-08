@@ -1,13 +1,9 @@
-<nav class="navbar">
+<nav *ngIf="!isLoggedIn" class="navbar">
     <ul class="left-items">
-        <li id = "" class="nav-item">Realtime Chat App</li>
+        <li class="nav-item">Realtime Chat App</li>
     </ul>
 
-    <ul *ngIf="isLoggedIn"  class="right-items">
-        <li class="nav-item"><a (click)="signOut()" class="nav-link">Sign Out</a></li>
-    </ul>
-
-    <ul *ngIf="!isLoggedIn" class="right-items">
+    <ul class="right-items">
         <li class="nav-item"><a href="/login" class="nav-link">Log In</a></li>
         <li class="nav-item"><a href="/register" class="nav-link"> Register</a></li>
     </ul>

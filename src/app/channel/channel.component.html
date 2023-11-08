@@ -1,27 +1,25 @@
-<!-- <p>channel works!</p> -->
-
-
-<p *ngFor="let msg of messages">
-    {{msg.sender}} @ {{msg.time_stamp | date:'short'}}: {{msg.text}} 
-</p>
-
-<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-    <div>
-        <label for="message"> Send Message: </label>
-        <input id="message" type="text" formControlName="message">
+<div class="channel-header-container">
+    <h2 class="channel-header">{{channelName}}</h2>
+    <form class="add-user-form" [formGroup]="addUserForm" (ngSubmit)="addUser()">
+        <input class="add-user-text" id="addUser" type="text" formControlName="username" placeholder="Enter a user's username here">
+        <input class="add-user-btn" type="submit" value="Add User">
+    </form>    
+</div>
+<div class="messages">
+    <div class="message" *ngFor="let msg of messages" [ngClass]="msg.sender === username ? 'left' : 'right'">
+        <p class="message-header">{{msg.sender}} @ {{msg.time_stamp | date:'short'}}:</p>
+        <p>{{msg.text}}</p>
     </div>
-    <div>
-        <input type="submit" value="Send"> 
-    </div>
-</form>
+</div>
 
-<form [formGroup]="addUserForm" (ngSubmit)="addUser()">
-    <div>
-        <label for="addUser"> Add User: </label>
-        <input id="addUser" type="text" formControlName="username">
+
+<form class="message-form" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+    <div class="message-container">
+        <textarea id="message" type="text" formControlName="message"></textarea>
     </div>
-    <div>
-        <input type="submit" value="Add">
+    <div class="send-container">
+        <input class="submit-btn" type="submit" value="Send"> 
     </div>
 </form>
+
 

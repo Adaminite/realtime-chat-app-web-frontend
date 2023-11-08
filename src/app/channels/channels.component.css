@@ -1,3 +1,28 @@
+.app-header{
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-title{
+    font-weight: 800;
+    font-size: 1.4rem;
+}
+
+.sign-out{
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-out-btn{
+    display: block;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
 .channel-selection{
     position: fixed;
     overflow-y: scroll;
@@ -5,7 +30,7 @@
     flex-direction: column;
     width: 250px;
     height: 100%;
-    top: 0;
+    top: 0px;
     left: 0;
 }
 
@@ -33,6 +58,9 @@
 .channel{
     position: relative;
     left: 250px;
+    width: calc(100% - 265px);
+    margin-left: 15px;
+    overflow-x: hidden;
 }
 
 .channel-form{
