@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-channel',
@@ -52,7 +53,7 @@ export class ChannelComponent {
       return;
     }
 
-    const response = await fetch('http://localhost:3000/channels/adduser', {
+    const response = await fetch(`${environment.serverURL}/channels/adduser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

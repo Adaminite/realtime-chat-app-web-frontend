@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core
 import { FormControl, FormBuilder } from '@angular/forms';
 import { StateManagementService } from '../statemanagement.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 export interface LogInEvent{
   isSignedIn: boolean,
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const response = await fetch('http://localhost:3000/users/login', {
+    const response = await fetch(`${environment.serverURL}/users/login`, {
       method: "POST",
       mode: "cors",
       headers: {

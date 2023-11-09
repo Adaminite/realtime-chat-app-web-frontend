@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StateManagementService } from '../statemanagement.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-channels',
@@ -66,7 +67,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
 
   async getChatHistory(): Promise<void> {
     try{
-      const response = await fetch('http://localhost:3000/users/channelswithmessages/' + this.userId, {
+      const response = await fetch(`${environment.serverURL}/users/channelswithmessages/` + this.userId, {
         mode: "cors",
         method: "GET",
         headers: {
@@ -98,7 +99,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
           this.channelIdToName.set(value["channelId"], value["channelName"]);
           this.updateChannelList();
           
-          const response = await fetch('http://localhost:3000/messages/' + value["channelId"], {
+          const response = await fetch(`${environment.serverURL}/messages/` + value["channelId"], {
             method: "GET",
             mode: "cors"
           });
@@ -121,7 +122,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
 
   async createRoom() : Promise<void> {
     const channelName : string | null | undefined = this.channelForm.value["channelName"];
-    const response = await fetch('http://localhost:3000/channels/create', {
+    const response = await fetch(`${environment.serverURL}/channels/create`, {
       method: "POST",
       mode: 'cors',
       headers : {

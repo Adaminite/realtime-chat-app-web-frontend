@@ -4,6 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { LogInEvent } from '../login/login.component';
 import { StateManagementService } from '../statemanagement.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-register',
@@ -57,7 +58,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.registrationForm.controls.password.reset();
       this.registrationForm.controls.passwordConfirm.reset();
     } else{
-      const response = await fetch("http://localhost:3000/users/register", {
+      const response = await fetch(`${environment.serverURL}/users/register`, {
         method: "POST",
         mode: "cors",
         headers: {

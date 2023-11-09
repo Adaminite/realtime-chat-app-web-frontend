@@ -4,7 +4,6 @@
     align-items: center;
     background: linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255));
     height: 75px;
-    /*box-shadow: 10px 10px 10px 10px rgb(240, 240, 240); */
 }
 
 .left-items{
@@ -25,10 +24,6 @@
 .nav-item{
     padding: 10px;
     cursor: pointer;
-}
-
-.footer{
-
 }
 
 

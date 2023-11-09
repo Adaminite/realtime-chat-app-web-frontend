@@ -1,13 +1,13 @@
 <div class="form-card">
-    <h1 class="form-header"> Log In </h1>
+    <h1 class="form-header">Log In</h1>
 
     <form class="form-main" (ngSubmit)="signIn()" [formGroup]="logInForm">
         <div class="form-control">
-            <label class="form-label" for="user"> Username: </label>
+            <label class="form-label" for="user">Username:</label>
             <input class="form-text" id="user" type="text" formControlName="username">
         </div>
         <div class="form-control">
-            <label class="form-label" for="pass"> Password: </label>
+            <label class="form-label" for="pass">Password:</label>
             <input id="pass" class="form-text" type="password" formControlName="password">
         </div>
         <p class="error" [ngClass]="errorMessage ? 'show' : 'hide'"> {{errorMessage ? errorMessage : 'error placeholder'}} </p>
