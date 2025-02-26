@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-channel',

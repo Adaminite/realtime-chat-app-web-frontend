@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StateManagementService } from '../statemanagement.service';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-channels',

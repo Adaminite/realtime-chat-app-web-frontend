@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core
 import { FormControl, FormBuilder } from '@angular/forms';
 import { StateManagementService } from '../statemanagement.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 export interface LogInEvent{
   isSignedIn: boolean,

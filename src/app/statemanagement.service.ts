@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { webSocket } from 'rxjs/webSocket';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class StateManagementService {
     this._isLoggedIn.next(true);
     this._userId.next(userId);
     this._username.next(username);
-    this._ws.next(webSocket(`ws://localhost:3000/?username=${username}`));
+    this._ws.next(webSocket(`ws://${environment.serverURL}/?username=${username}`));
   }
 
   signOut(){

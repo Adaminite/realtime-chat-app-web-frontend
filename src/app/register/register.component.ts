@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { LogInEvent } from '../login/login.component';
 import { StateManagementService } from '../statemanagement.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
